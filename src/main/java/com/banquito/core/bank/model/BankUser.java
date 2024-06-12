@@ -1,7 +1,7 @@
 package com.banquito.core.bank.model;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

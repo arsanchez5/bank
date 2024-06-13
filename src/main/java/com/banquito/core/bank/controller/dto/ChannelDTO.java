@@ -1,9 +1,11 @@
 
 package com.banquito.core.bank.controller.dto;
 
-import lombok.Data;
+import lombok.Builder;
+import lombok.Value;
 
-@Data
+@Value
+@Builder
 public class ChannelDTO {
 
     private String code;

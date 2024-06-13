@@ -5,9 +5,9 @@ import lombok.Value;
 
 @Value
 @Builder
-public class RoleDTO {
+public class UserPasswordDTO {
 
-    private String code;
-    private String name;
+    private String userName;
+    private String password;
 
 }

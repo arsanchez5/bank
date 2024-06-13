@@ -1,10 +1,12 @@
 package com.banquito.core.bank.controller.dto;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
-import lombok.Data;
+import lombok.Builder;
+import lombok.Value;
 
-@Data
+@Value
+@Builder
 public class BankUserDTO {
 
     private Integer id;
@@ -15,7 +17,7 @@ public class BankUserDTO {
     private String lastName;
     private String password;
     private String state;
-    private LocalDate lastLogin;
+    private LocalDateTime lastLogin;
     private String email;
 
     public String getFullName() {

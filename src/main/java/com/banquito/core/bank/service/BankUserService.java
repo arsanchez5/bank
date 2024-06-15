@@ -73,7 +73,7 @@ public class BankUserService {
         user.setState("BLO");
         user.setTypeUser("TEL");
         user.setCreationDate(LocalDateTime.now());
-        // TODO: Generacion de password
+        // TODO: Password generation
         user.setPassword("CambiarClave1");
         BankUser userCreated = this.bankUserRepository.save(user);
         return this.bankUserMapper.toDTO(userCreated);
@@ -97,7 +97,7 @@ public class BankUserService {
         if (user == null) {
             throw new RuntimeException("No existe el usuario: " + userName);
         }
-        // TODO: Generar clave
+        // TODO: Generate password
         String password = "GenerarClave2";
         String md5Hex = DigestUtils.md5Hex(password);
         user.setPassword(md5Hex);

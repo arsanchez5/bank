@@ -2,8 +2,6 @@ package com.banquito.core.bank.service;
 
 import java.time.LocalDateTime;
 
-import javax.management.RuntimeErrorException;
-
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.stereotype.Service;
 

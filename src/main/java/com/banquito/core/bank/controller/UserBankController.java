@@ -3,7 +3,6 @@ package com.banquito.core.bank.controller;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.springframework.boot.autoconfigure.security.SecurityProperties.User;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,7 +19,6 @@ import com.banquito.core.bank.model.BankUser;
 import com.banquito.core.bank.service.BankUserService;
 import com.banquito.core.bank.util.mapper.BankUserMapper;
 
-import jakarta.websocket.server.PathParam;
 
 @RestController
 @RequestMapping(path = "/users")
@@ -76,7 +74,7 @@ public class UserBankController {
     }
 
     @GetMapping
-    public ResponseEntity<List<BankUserDTO>> getByLastName(@RequestParam("lastName") String lastName) {
+    public ResponseEntity<List<BankUserDTO>> getByLastName(@RequestParam String lastName) {
         System.out.println("Va a buscar usuario por lastName like: " + lastName + "%");
         if (lastName != null) {
             List<BankUser> users = this.service.obtainByLastName(lastName + "%");
@@ -101,7 +99,7 @@ public class UserBankController {
     }
 
     @PutMapping("/generatePassword/{userName}")
-    public ResponseEntity<Void> generatePassword(@PathVariable("userName") String userName) {
+    public ResponseEntity<Void> generatePassword(@PathVariable String userName) {
         System.out.println("Va a generar clave para: " + userName);
         try {
             this.service.generatePassword(userName);

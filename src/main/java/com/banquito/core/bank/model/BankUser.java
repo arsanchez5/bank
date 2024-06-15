@@ -45,12 +45,12 @@ public class BankUser implements Serializable {
     private String typeUser;
     @Column(name = "PASSWORD", length = 64, nullable = false)
     private String password;
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "CREATION_DATE", nullable = false)
     private LocalDateTime creationDate;
     @Column(name = "STATE", length = 3, nullable = false)
     private String state;
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "LAST_LOGIN", nullable = false)
     private LocalDateTime lastLogin;
     @Column(name = "EMAIL", length = 100, nullable = false)

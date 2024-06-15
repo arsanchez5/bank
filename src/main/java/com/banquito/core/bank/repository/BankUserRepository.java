@@ -6,9 +6,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.banquito.core.bank.model.BankUser;
 
-public interface BankUserRepository extends JpaRepository<BankUser, Integer> {
+public interface BankUserRepository extends JpaRepository<BankUser, Long> {
 
-    BankUser findByUserName(String userName);
+    BankUser findByUsername(String username);
 
     BankUser findByEmail(String email);
 

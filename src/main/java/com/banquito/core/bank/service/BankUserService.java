@@ -21,20 +21,20 @@ import jakarta.transaction.Transactional;
 @Transactional
 public class BankUserService {
 
-    private final BankUserRepository bankUserRepository;
+    private final BankUserRepository repository;
     private final BankRepository bankRepository;
     private final BankUserMapper bankUserMapper;
 
-    public BankUserService(BankUserRepository bankUserRepository, BankRepository bankRepository,
+    public BankUserService(BankUserRepository repository, BankRepository bankRepository,
             BankUserMapper bankUserMapper) {
-        this.bankUserRepository = bankUserRepository;
+        this.repository = repository;
         this.bankRepository = bankRepository;
         this.bankUserMapper = bankUserMapper;
     }
 
     @Transactional(Transactional.TxType.NEVER)
-    public BankUser obtainUserById(Integer id) {
-        Optional<BankUser> userOpt = this.bankUserRepository.findById(id);
+    public BankUser obtainUserById(Long id) {
+        Optional<BankUser> userOpt = this.repository.findById(id);
         if (userOpt.isPresent()) {
             return userOpt.get();
         } else {
@@ -43,28 +43,28 @@ public class BankUserService {
     }
 
     public BankUser obtainByUserName(String userName) {
-        BankUser user = this.bankUserRepository.findByUserName(userName);
+        BankUser user = this.repository.findByUsername(userName);
         if (user != null) {
             return user;
         } else {
-            throw new RuntimeException("No existe el usuario con username: " + userName);
+            throw new RuntimeException("No existe usuario con el userName:" + userName);
         }
     }
 
     public BankUser obtainByEmail(String email) {
-        BankUser user = this.bankUserRepository.findByEmail(email);
+        BankUser user = this.repository.findByEmail(email);
         if (user != null) {
             return user;
         } else {
-            throw new RuntimeException("No existe el usuario con email: " + email);
+            throw new RuntimeException("No existe usuario con el email:" + email);
         }
     }
 
     public BankUserDTO create(BankUserDTO dto) {
-        if (this.bankUserRepository.findByUserName(dto.getUserName()) != null) {
+        if (this.repository.findByUsername(dto.getUserName()) != null) {
             throw new RuntimeException("usuario repetido");
         }
-        if (this.bankUserRepository.findByEmail(dto.getEmail()) != null) {
+        if (this.repository.findByEmail(dto.getEmail()) != null) {
             throw new RuntimeException("Email repetido");
         }
         BankUser user = this.bankUserMapper.toPersistence(dto);
@@ -75,25 +75,25 @@ public class BankUserService {
         user.setCreationDate(LocalDateTime.now());
         // TODO: Password generation
         user.setPassword("CambiarClave1");
-        BankUser userCreated = this.bankUserRepository.save(user);
+        BankUser userCreated = this.repository.save(user);
         return this.bankUserMapper.toDTO(userCreated);
     }
 
     public List<BankUser> obtainByLastName(String lastName) {
-        return this.bankUserRepository.findTop100ByLastNameLikeOrderByLastNameAscFirstNameAsc(lastName);
+        return this.repository.findTop100ByLastNameLikeOrderByLastNameAscFirstNameAsc(lastName);
     }
 
     public void changePassword(UserPasswordDTO userPassword) {
-        BankUser user = this.bankUserRepository.findByUserName(userPassword.getUserName());
+        BankUser user = this.repository.findByUsername(userPassword.getUserName());
         if (user == null) {
             throw new RuntimeException("No existe el usuario: " + userPassword.getUserName());
         }
         user.setPassword(userPassword.getPassword());
-        this.bankUserRepository.save(user);
+        this.repository.save(user);
     }
 
     public void generatePassword(String userName) {
-        BankUser user = this.bankUserRepository.findByUserName(userName);
+        BankUser user = this.repository.findByUsername(userName);
         if (user == null) {
             throw new RuntimeException("No existe el usuario: " + userName);
         }
@@ -101,6 +101,7 @@ public class BankUserService {
         String password = "GenerarClave2";
         String md5Hex = DigestUtils.md5Hex(password);
         user.setPassword(md5Hex);
-        this.bankUserRepository.save(user);
+        this.repository.save(user);
     }
+
 }

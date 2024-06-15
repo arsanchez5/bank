@@ -26,7 +26,7 @@ public class AuthenticationService {
         String errorMessage = "Credenciales invalidas";
         if (dto.getUserName() != null && dto.getPassword() != null && dto.getUserName().length() > 3
                 && dto.getPassword().length() == 32) {
-            BankUser user = this.bankUserRepository.findByUserName(dto.getUserName());
+            BankUser user = this.bankUserRepository.findByUsername(dto.getUserName());
             String md5 = DigestUtils.md5Hex(dto.getPassword());
             if (user.getPassword().equals(md5)) {
                 user.setLastLogin(LocalDateTime.now());

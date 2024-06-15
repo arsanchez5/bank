@@ -28,13 +28,13 @@ public class BankUser implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "BANK_USER_ID", nullable = false)
-    private Integer id;
-    @Column(name = "CODE_BANK", length = 20, nullable = false)
+    private Long id;
+    @Column(name = "CODE_BANK", nullable = false)
     private String codeBank;
-    @Column(name = "CODE_ROLE", length = 10, nullable = false)
+    @Column(name = "CODE_ROLE", nullable = false)
     private String codeRole;
     @Column(name = "USER_NAME", length = 20, nullable = false)
-    private String userName;
+    private String username;
     @Column(name = "FIRST_NAME", length = 50, nullable = false)
     private String firstName;
     @Column(name = "LAST_NAME", length = 50, nullable = false)
@@ -51,7 +51,7 @@ public class BankUser implements Serializable {
     @Column(name = "STATE", length = 3, nullable = false)
     private String state;
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "LAST_LOGIN", nullable = false)
+    @Column(name = "LAST_LOGIN")
     private LocalDateTime lastLogin;
     @Column(name = "EMAIL", length = 100, nullable = false)
     private String email;
@@ -63,7 +63,7 @@ public class BankUser implements Serializable {
     @JoinColumn(name = "CODE_ROLE", referencedColumnName = "CODE_ROLE", insertable = false, updatable = false)
     private Role role;
 
-    public BankUser(Integer id) {
+    public BankUser(Long id) {
         this.id = id;
     }
 

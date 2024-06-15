@@ -19,7 +19,6 @@ import com.banquito.core.bank.model.BankUser;
 import com.banquito.core.bank.service.BankUserService;
 import com.banquito.core.bank.util.mapper.BankUserMapper;
 
-
 @RestController
 @RequestMapping(path = "/users")
 public class UserBankController {
@@ -44,7 +43,7 @@ public class UserBankController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<BankUserDTO> getById(@PathVariable Integer id) {
+    public ResponseEntity<BankUserDTO> getById(@PathVariable Long id) {
         try {
             System.out.println("Va a buscar usuario por id:" + id);
             return ResponseEntity.ok(this.bankUserMapper.toDTO(this.service.obtainUserById(id)));
@@ -56,7 +55,7 @@ public class UserBankController {
     @GetMapping("/email/{email}")
     public ResponseEntity<BankUserDTO> getByEmail(@PathVariable String email) {
         try {
-            System.out.println("Va a buscar usuario por email: " + email);
+            System.out.println("Va a buscar usuario por email:" + email);
             return ResponseEntity.ok(this.bankUserMapper.toDTO(this.service.obtainByEmail(email)));
         } catch (RuntimeException rte) {
             return ResponseEntity.notFound().build();
@@ -66,7 +65,7 @@ public class UserBankController {
     @GetMapping("/username/{userName}")
     public ResponseEntity<BankUserDTO> getByUserName(@PathVariable String userName) {
         try {
-            System.out.println("Va a buscar usuario por username: " + userName);
+            System.out.println("Va a buscar usuario por username:" + userName);
             return ResponseEntity.ok(this.bankUserMapper.toDTO(this.service.obtainByUserName(userName)));
         } catch (RuntimeException rte) {
             return ResponseEntity.notFound().build();
@@ -74,8 +73,8 @@ public class UserBankController {
     }
 
     @GetMapping
-    public ResponseEntity<List<BankUserDTO>> getByLastName(@RequestParam String lastName) {
-        System.out.println("Va a buscar usuario por lastName like: " + lastName + "%");
+    public ResponseEntity<List<BankUserDTO>> getByLastName(@RequestParam("lastName") String lastName) {
+        System.out.println("Va a buscar usuario por lastName like:" + lastName + "%");
         if (lastName != null) {
             List<BankUser> users = this.service.obtainByLastName(lastName + "%");
             return ResponseEntity.ok(
@@ -99,7 +98,7 @@ public class UserBankController {
     }
 
     @PutMapping("/generatePassword/{userName}")
-    public ResponseEntity<Void> generatePassword(@PathVariable String userName) {
+    public ResponseEntity<Void> generatePassword(@PathVariable("userName") String userName) {
         System.out.println("Va a generar clave para: " + userName);
         try {
             this.service.generatePassword(userName);
@@ -108,5 +107,4 @@ public class UserBankController {
             return ResponseEntity.notFound().build();
         }
     }
-
 }

@@ -9,7 +9,7 @@ import lombok.Value;
 @Builder
 public class BankUserDTO {
 
-    private Integer id;
+    private Long id;
     private String codeRole;
     private String nameRole;
     private String userName;
@@ -23,5 +23,4 @@ public class BankUserDTO {
     public String getFullName() {
         return this.firstName + " " + this.lastName;
     }
-
 }
